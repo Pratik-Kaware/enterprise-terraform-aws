@@ -26,9 +26,8 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-    steps:
       - name: Debug GitHub Context
-         run: |
+        run: |
           echo "Repository: ${{ github.repository }}"
           echo "Ref: ${{ github.ref }}"
           echo "Event: ${{ github.event_name }}"
