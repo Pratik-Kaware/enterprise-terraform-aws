@@ -32,6 +32,9 @@ jobs:
           echo "Ref: ${{ github.ref }}"
           echo "Event: ${{ github.event_name }}"
 
+      - name: Debug OIDC Token
+        uses: github/actions-oidc-debugger@main
+
       # 2. Configure AWS Credentials using OIDC (No permanent passwords!)
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
