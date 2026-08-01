@@ -27,7 +27,7 @@ resource "aws_iam_role" "github_actions_role" {
           }
 
           StringLike = {
-            "token.actions.githubusercontent.com:sub" = "repo:Pratik-Kaware/enterprise-terraform-aws:*"
+            "token.actions.githubusercontent.com:sub" = "repo:Pratik-Kaware*/enterprise-terraform-aws*:*"
           }
         }
       }
