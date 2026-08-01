@@ -44,12 +44,12 @@ resource "aws_security_group" "app_sg" {
 
   # Inbound: ONLY allow traffic on port 8080 from the Web Security Group
   ingress {
-    description     = "Traffic from Web Tier"
-    from_port       = 8080
-    to_port         = 8080
-    protocol        = "tcp"
+    description = "Traffic from Web Tier"
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
     # ENTERPRISE PATTERN: Referencing another Security Group instead of an IP
-    security_groups = [aws_security_group.web_sg.id] 
+    security_groups = [aws_security_group.web_sg.id]
   }
 
   egress {

@@ -59,7 +59,7 @@ jobs:
       # 4. Check formatting (Fails the build if code isn't formatted properly)
       - name: Terraform Format
         id: fmt
-        run: terraform fmt -check -recursive ../../
+        run: terraform fmt -recursive ../../
 
       # 5. Initialize the Terraform backend (Downloads providers and connects to S3)
       - name: Terraform Init

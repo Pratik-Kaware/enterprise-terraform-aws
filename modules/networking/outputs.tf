@@ -6,7 +6,7 @@ output "vpc_id" {
 output "public_subnet_ids" {
   description = "List of IDs of public subnets"
   # The [*] is the splat operator. It collects all IDs from the count loop into a list.
-  value       = aws_subnet.public[*].id
+  value = aws_subnet.public[*].id
 }
 
 output "private_subnet_ids" {
