@@ -32,15 +32,23 @@ jobs:
           echo "Ref: ${{ github.ref }}"
           echo "Event: ${{ github.event_name }}"
 
-      - name: Debug OIDC Token
-        uses: github/actions-oidc-debugger@main
+      - name: Print OIDC Token Claims
+        env:
+          ACTIONS_ID_TOKEN_REQUEST_URL: ${{ env.ACTIONS_ID_TOKEN_REQUEST_URL }}
+          ACTIONS_ID_TOKEN_REQUEST_TOKEN: ${{ env.ACTIONS_ID_TOKEN_REQUEST_TOKEN }}
+        run: |
+          TOKEN=$(curl -s \
+            -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
+            "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=sts.amazonaws.com" | jq -r '.value')
+          echo "$TOKEN" | cut -d '.' -f2 | base64 -d || true
 
       # 2. Configure AWS Credentials using OIDC (No permanent passwords!)
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::080050138686:role/github-actions-ci-role # REPLACE THIS!
+          role-to-assume: arn:aws:iam::080050138686:role/github-actions-ci-role
           aws-region: us-east-1
+          audience: sts.amazonaws.com
 
       # 3. Install the correct version of Terraform
       - name: Setup Terraform
