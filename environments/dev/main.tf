@@ -8,18 +8,18 @@ module "networking" {
   source = "../../modules/networking"
 
   environment          = "dev"
-  vpc_cidr             = "10.0.0.0/16" 
-  public_subnets_cidr  = ["10.0.1.0/24", "10.0.2.0/24"] 
-  private_subnets_cidr = ["10.0.11.0/24", "10.0.12.0/24"] 
+  vpc_cidr             = "10.0.0.0/16"
+  public_subnets_cidr  = ["10.0.1.0/24", "10.0.2.0/24"]
+  private_subnets_cidr = ["10.0.11.0/24", "10.0.12.0/24"]
 }
 # The Security Module
 module "security" {
   source = "../../modules/security"
 
   environment = "dev"
-  
+
   # Grabbing the output from the networking module above!
-  vpc_id      = module.networking.vpc_id
+  vpc_id = module.networking.vpc_id
 }
 
 # The IAM Module
@@ -33,14 +33,14 @@ module "iam" {
 module "compute" {
   source = "../../modules/compute"
 
-  environment           = "dev"
-  
+  environment = "dev"
+
   # We use [0] to select the first private subnet from the list we created in Phase 4
-  subnet_id             = module.networking.private_subnet_ids[0]
-  
+  subnet_id = module.networking.private_subnet_ids[0]
+
   # Attaching the App Security Group from Phase 5
-  security_group_id     = module.security.app_sg_id
-  
+  security_group_id = module.security.app_sg_id
+
   # Attaching the IAM Identity from Phase 6
   instance_profile_name = module.iam.instance_profile_name
 }
@@ -51,9 +51,9 @@ module "s3_storage" {
   source = "../../modules/s3"
 
   environment = "dev"
-  
+
   # REPLACE the identifier below to make this globally unique!
-  bucket_name = "enterprise-app-data-pratik" 
+  bucket_name = "enterprise-app-data-pratik"
 }
 
 # The GitHub OIDC Module (For CI/CD Authentication)

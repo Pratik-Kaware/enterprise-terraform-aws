@@ -4,7 +4,7 @@ provider "aws" {
 
 # 1. The S3 Bucket for State Storage and Native Locking
 resource "aws_s3_bucket" "terraform_state" {
-  bucket = "enterprise-tf-state-pratik" 
+  bucket = "enterprise-tf-state-pratik"
 }
 
 # 2. Enable Versioning (Crucial for rollbacks if state gets corrupted)

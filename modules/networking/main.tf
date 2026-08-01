@@ -5,8 +5,8 @@ data "aws_availability_zones" "available" {
 
 # 2. The VPC Resource
 resource "aws_vpc" "this" {
-  cidr_block           = var.vpc_cidr
-  
+  cidr_block = var.vpc_cidr
+
   # Enterprise Standard: Always enable DNS hostnames for internal resolution
   enable_dns_hostnames = true
   enable_dns_support   = true
@@ -20,14 +20,14 @@ resource "aws_vpc" "this" {
 # 3. Public Subnets (Iterating with 'count')
 resource "aws_subnet" "public" {
   # count creates multiple subnets based on how many CIDRs we pass in
-  count             = length(var.public_subnets_cidr)
-  
-  vpc_id            = aws_vpc.this.id
-  cidr_block        = var.public_subnets_cidr[count.index]
-  
+  count = length(var.public_subnets_cidr)
+
+  vpc_id     = aws_vpc.this.id
+  cidr_block = var.public_subnets_cidr[count.index]
+
   # Distribute subnets across available AZs automatically
   availability_zone = data.aws_availability_zones.available.names[count.index]
-  
+
   # Resources here get a public IP automatically (e.g., Load Balancers)
   map_public_ip_on_launch = true
 

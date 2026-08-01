@@ -13,13 +13,13 @@ data "aws_ami" "amazon_linux_2023" {
 resource "aws_instance" "app_server" {
   ami           = data.aws_ami.amazon_linux_2023.id
   instance_type = var.instance_type
-  
+
   # Network placement
-  subnet_id     = var.subnet_id
-  
+  subnet_id = var.subnet_id
+
   # Firewall rules
   vpc_security_group_ids = [var.security_group_id]
-  
+
   # Identity / Permissions (The jacket we built in Phase 6)
   iam_instance_profile = var.instance_profile_name
 
