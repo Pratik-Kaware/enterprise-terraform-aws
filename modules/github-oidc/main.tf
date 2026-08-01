@@ -25,10 +25,10 @@ resource "aws_iam_role" "github_actions_role" {
           StringEquals = {
             "token.actions.githubusercontent.com:aud" = "sts.amazonaws.com"
           }
-          # CRITICAL SECURITY BOUNDARY: Restrict to your repo!
-          "StringLike": {
-            "token.actions.githubusercontent.com:sub": "repo:Pratik-Kaware/*"
-            }
+
+          StringLike = {
+            "token.actions.githubusercontent.com:sub" = "repo:Pratik-Kaware/enterprise-terraform-aws:*"
+          }
         }
       }
     ]
